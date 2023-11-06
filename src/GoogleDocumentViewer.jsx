@@ -5,7 +5,7 @@ import './GoogleDocumentViewer.css';
 
 const GoogleDocumentViewer = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [documentURL, setDocumentURL] = useState('https://docs.google.com/gview?url=https://drive.google.com/uc?id=1Pn2X3Aa5vBjf9vQq8Qp4VlRjQo7YyNqs&embedded=true');
+  const [documentURL, setDocumentURL] = useState('https://docs.google.com/spreadsheets/d/13UAv5jHQlfaqHnn4J9yGBIRm6RRVm-8K3cfucOKDcZg/edit?usp=sharing');
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);

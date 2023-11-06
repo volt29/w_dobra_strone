@@ -11,6 +11,16 @@
   transition: right 0.3s;
 }
 
+/* Zmiana koloru nagłówka modalu */
+.modal h2 {
+  color: #422800; /* Twoj brązowy kolor */
+}
+
+/* Zmiana koloru paragrafu modalu */
+.modal p {
+  color: #000000; /* Ten sam brązowy kolor */
+}
+
 .modal.open {
   right: 0;
 }
@@ -44,4 +54,92 @@
 .close-button:active {
   box-shadow: #422800 2px 2px 0 0;
   transform: translate(2px, 2px);
+}
+
+.link-button {
+  background-color: #fbeee0;
+  border: 2px solid #422800;
+  border-radius: 30px;
+  color: #422800;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 11px;
+  padding: 0 6px;
+  line-height: 18px;
+  text-align: center;
+  top: 10px;
+  left: 10px;
+}
+
+.link-button:hover {
+  background-color: #fff;
+}
+
+.link-button:active {
+  box-shadow: #422800 2px 2px 0 0;
+  transform: translate(2px, 2px);
+}
+
+/* Usuwa bullety z listy i usuwa domyślne marginesy/paddingi */
+.modal ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Styl dla pojedynczego zadania */
+.task-item {
+  margin-bottom: 10px; /* dodaje odstęp między zadaniem a kolejnym elementem listy */
+}
+
+/* Styl dla etykiet, aby pasowały do ogólnego wyglądu modala */
+.task-item label {
+  cursor: pointer;
+  display: block; /* sprawia, że etykieta zajmuje całą dostępną szerokość dla lepszego klikalności */
+  margin-bottom: 5px; /* odstęp między etykietą a kolejnym elementem */
+}
+
+/* Styl dla linków (przejdź), aby pasowały do przycisków */
+.task-item a {
+  color: #422800; /* kolor linku, dostosuj do swojego motywu */
+  text-decoration: none; /* usuwa podkreślenie z linków */
+  margin-left: 10px; /* odstęp między checkboxem a linkiem */
+}
+
+.task-item a:hover {
+  text-decoration: underline; /* dodaje podkreślenie po najechaniu kursorem */
+}
+
+/* Dostosowuje wygląd checkboxów do stylów przycisków i modala */
+.task-item input[type="checkbox"] {
+  accent-color: #4caf50; /* zmienia kolor checkboxa, dostosuj do swojego motywu */
+}
+
+/* Styl dla formularza dodawania rekordu, aby pasował do modala */
+.task-item form {
+  margin-top: 10px; /* dodaje odstęp między listą zadań a formularzem */
+}
+
+.task-item form label {
+  display: block; /* sprawia, że etykieta zajmuje całą dostępną szerokość */
+  margin-bottom: 5px; /* odstęp między etykietą a kolejnym polem formularza */
+}
+
+.task-item form input[type="text"] {
+  width: calc(100% - 10px); /* pełna szerokość minus marginesy */
+  padding: 5px; /* padding dla lepszego wyglądu */
+  margin-bottom: 10px; /* odstęp między polami formularza */
+}
+
+.task-item form button {
+  background-color: #4caf50; /* kolor tła przycisku, dostosuj do swojego motywu */
+  color: white; /* kolor tekstu */
+  border: none; /* usuwa obramowanie */
+  padding: 10px 15px; /* padding dla lepszego wyglądu */
+  cursor: pointer; /* kursor w kształcie dłoni po najechaniu */
+  display: block; /* sprawia, że przycisk zajmuje całą dostępną szerokość */
+}
+
+.task-item form button:hover {
+  background-color: #45a049; /* ciemniejszy kolor tła przycisku po najechaniu */
 }
