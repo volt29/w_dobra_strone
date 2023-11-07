@@ -15,9 +15,14 @@ const AssistantModal = ({ isOpen, toggleModal, viewDocument }) => {
     ));
   };
 
-  const handleLinkClick = (link, event) => {
-    event.preventDefault(); // Zapobiegnij domyślnej akcji linka
-    viewDocument(link);
+  const handleLinkClick = (taskId, event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    const task = tasks.find(task => task.id === taskId);
+    if (task && !task.completed) {
+      handleTaskCompletion(taskId);
+    }
+    viewDocument(task.link);
   };
 
   const handleInputChange = (event) => {
@@ -28,46 +33,51 @@ const AssistantModal = ({ isOpen, toggleModal, viewDocument }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log('Form data submitted:', formData);
-    // Ustawienie zadania jako ukończone powinno być wykonane po potwierdzeniu dodania rekordu
-    // Możesz to zrobić poprzez wywołanie odpowiedniej funkcji API tutaj
+    // Simulate marking the 'Add new record' task as completed
+    handleTaskCompletion(3);
   };
 
+  // Logika do zmiany wyglądu zaznaczonego zadania
+  const getTaskItemStyle = (completed) => ({
+    textDecoration: completed ? 'line-through' : 'none',
+    color: completed ? 'grey' : 'black',
+  });
+
   return (
-    <div className={`modal ${isOpen ? 'open' : ''}`} style={{ right: isOpen ? '0' : '-100%', fontFamily: 'Lato, sans-serif' }}>
+    <div className={`modal ${isOpen ? 'open' : ''}`} style={{ right: isOpen ? '0' : '-100%' }}>
       <button className="close-button" onClick={toggleModal}>X</button>
-      <h2 style={{ fontFamily: 'Lato, sans-serif' }}>Onboarding dodawania rekordów do plików produkcyjnych</h2>
-      <p style={{ fontFamily: 'Lato, sans-serif' }}>Poniżej znajduje się lista zadań, która pomoże Ci efektywnie pracować z plikami produkcyjnymi.</p>
+      <h2>Onboarding dodawania rekordów do plików produkcyjnych</h2>
+      <p>Poniżej znajduje się lista zadań, która pomoże Ci efektywnie pracować z plikami produkcyjnymi.</p>
       <ul>
         {tasks.map(task => (
-          <li key={task.id} className="task-item" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-            <div style={{ display: 'flex', width: '100%', marginBottom: '5px' }}>
+          <li key={task.id} className="task-item">
+            <div>
               <input
                 type="checkbox"
                 id={`task-${task.id}`}
                 checked={task.completed}
                 onChange={() => handleTaskCompletion(task.id)}
-                style={{ marginRight: '10px' }}
               />
-              <label htmlFor={`task-${task.id}`} style={{ flexGrow: 1, fontFamily: 'Lato, sans-serif' }}>{task.title}</label>
+              <label htmlFor={`task-${task.id}`} style={getTaskItemStyle(task.completed)}>
+                {task.title}
+              </label>
             </div>
             {task.link && task.id === 2 && (
-              <button onClick={(event) => handleLinkClick(task.link, event)} className="link-button" style={{ fontSize: '90%' }}>Przejdź do dokumentu</button>
+              <div className="link-button-container">
+                <button onClick={(event) => handleLinkClick(task.id, event)} className="link-button">Przejdź do dokumentu</button>
+              </div>
             )}
             {task.id === 3 && !task.completed && (
-              <form onSubmit={handleSubmit} style={{ width: '100%' }}>
-                <div style={{ marginBottom: '5px', width: '100%' }}>
-                  <label style={{ width: '100%' }}>
-                    Nazwa:
-                    <input type="text" name="name" value={formData.name} onChange={handleInputChange} required style={{ width: '100%' }} />
-                  </label>
-                </div>
-                <div style={{ marginBottom: '5px', width: '100%' }}>
-                  <label style={{ width: '100%' }}>
-                    Wartość:
-                    <input type="text" name="value" value={formData.value} onChange={handleInputChange} required style={{ width: '100%' }} />
-                  </label>
-                </div>
-                <button type="submit" style={{ width: '100%' }}>Dodaj rekord</button>
+              <form onSubmit={handleSubmit}>
+                <label>
+                  Nazwa:
+                  <input type="text" name="name" value={formData.name} onChange={handleInputChange} required />
+                </label>
+                <label>
+                  Wartość:
+                  <input type="text" name="value" value={formData.value} onChange={handleInputChange} required />
+                </label>
+                <button type="submit">Dodaj rekord</button>
               </form>
             )}
           </li>

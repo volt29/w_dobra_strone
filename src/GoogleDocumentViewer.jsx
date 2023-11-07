@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import AssistantModal from './AssistantModal';
 import './GoogleDocumentViewer.css';
@@ -12,7 +11,10 @@ const GoogleDocumentViewer = () => {
   };
 
   const viewDocument = (url) => {
-    setDocumentURL(url);
+    const timestamp = new Date().getTime(); // Generuje unikalny timestamp
+    const separator = url.includes('?') ? '&' : '?';
+    const newUrl = `${url}${separator}timestamp=${timestamp}`; // Dodaje timestamp do URL-a
+    setDocumentURL(newUrl);
   };
 
   return (
